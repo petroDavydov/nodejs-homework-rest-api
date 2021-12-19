@@ -41,7 +41,7 @@ const addContact = async ({ name, email, phone }) => {
 const updateContact = async (contactId, body) => {
   const index = contacts.findIndex((contact) => contact.id === contactId);
   if (index !== -1) {
-    const updatedContact = { id: contactId, ...body };
+    const updatedContact = { id: contactId, ...contacts[index], ...body };
     contacts[index] = updatedContact;
     await fs.writeFile(
       path.join(__dirname, "contacts.json"),

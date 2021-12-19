@@ -17,50 +17,10 @@ router.get("/:id", async (req, res, next) => {
   res.status(404).json({ message: "Not Found" });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 router.post("/", async (req, res, next) => {
   const newContact = await model.addContact(req.body);
   res.status(201).json(newContact);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 router.delete("/:id", async (req, res, next) => {
   const { id } = req.params;
@@ -71,63 +31,13 @@ router.delete("/:id", async (req, res, next) => {
   res.status(404).json({ message: "Not Found" });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 router.put("/:id", async (req, res, next) => {
-	const { id } = req.params
-	const contact = await model.updateContact(id, req.body)
-	if (contact) {
-		return res.status(200).json(contact)
-	}
+  const { id } = req.params;
+  const contact = await model.updateContact(id, req.body);
+  if (contact) {
+    return res.status(200).json(contact);
+  }
   res.status(404).json({ message: "Not Found" });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 export default router;
