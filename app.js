@@ -1,8 +1,11 @@
 import express from "express";
 import logger from "morgan";
 import cors from "cors";
+import Joi from 'joi'
+// import getRouterById from './controllers/contacts/getContactById'
+import contactsRouter from './controllers/contacts'
 
-import contactsRouter from "./routes/api/contacts";
+// import contactsRouter from "./routes/api/contacts";
 
 const app = express();
 
@@ -14,6 +17,7 @@ app.use(express.json()); // json
 app.use(express.urlencoded({ extended: false })); // form
 
 app.use("/api/contacts", contactsRouter);
+// app.use("/controllers/contacts", Joi(contactsRouter));
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
