@@ -3,6 +3,8 @@ import logger from "morgan";
 import cors from "cors";
 
 import contactsRoutes from "./routes";
+console.log(contactsRoutes)// все приходит как в постмане бить, какой адрес
+
 const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
