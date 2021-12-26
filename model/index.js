@@ -28,6 +28,11 @@ const removeContact = async (contactId) => {
   return result;
 };
 
+
+
+
+
+
 const addContact = async (body) => {
   const collection = await getCollection(db, "contacts");
   const newContact = {
