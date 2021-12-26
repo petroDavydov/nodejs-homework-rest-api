@@ -1,15 +1,52 @@
-import mongoose from "mongoose";
-const { Schema } = mongoose;
+import pkg from 'mongoose'
+import { MIN_AGE, MAX_AGE } from '../lib/constants'
 
-const blogSchema = new Schema({
-  title: String, // String is shorthand for {type: String}
-  author: String,
-  body: String,
-  comments: [{ body: String, date: Date }],
-  date: { type: Date, default: Date.now },
-  hidden: Boolean,
-  meta: {
-    votes: Number,
-    favs: Number,
+const { Schema, model } = pkg
+
+const contactSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'Set name for contact'],
+    },
+    age: {
+      type: Number,
+      min: MIN_AGE,
+      max: MAX_AGE,
+      default: null,
+    },
+    email: {
+      type: String,
+    },
+    phone: {
+      type: String,
+    },
+    favorite: {
+      type: Boolean,
+      default: false,
+    },
   },
-});
+  {
+    versionKey: false,
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+      transform: function (doc, ret) {
+        delete ret._id
+        return ret
+      },
+    },
+    toObject: { virtuals: true },
+  },
+)
+
+contactSchema.virtual('status').get(function () {
+  if (this.age >= 40) {
+    return 'old'
+  }
+  return 'young'
+})
+
+const Contact = model('contact', contactSchema)
+
+export default Contact
