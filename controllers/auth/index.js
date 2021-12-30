@@ -1,61 +1,43 @@
-import repositoryContacts from '../../repository/contacts'
 import { HttpCode } from '../../lib/constants'
+import AuthService from '../../service/auth'
+const authService = new AuthService()
 
-const getContacts = async (req, res, next) => {
-  console.log(req.query)
-  const contacts = await repositoryContacts.listContacts(req.query)
+const registration = async (req, res, next) => {
+  const { email } = req.body
+  const isUserExist = await authService.isUserExist(email)
+  if (isUserExist) {
+    return res.status(HttpCode.CONFLICT).json({
+      status: 'error',
+      code: HttpCode.CONFLICT,
+      message: 'Email is already exist',
+    })
+  }
+  const data = await authService.create(req.body)
+  res.status(HttpCode.OK).json({ status: 'success', code: HttpCode.OK, data })
+}
+
+const login = async (req, res, next) => {
+  const { email, password } = req.body
+  const user = await authService.getUser(email, password)
+  if (!user) {
+    return res.status(HttpCode.UNAUTHORIZED).json({
+      status: 'error',
+      code: HttpCode.UNAUTHORIZED,
+      message: 'Invalid credentials',
+    })
+  }
+  const token = authService.getToken(user)
+  await authService.setToken(user.id, token)
   res
     .status(HttpCode.OK)
-    .json({ status: 'success', code: HttpCode.OK, data: { ...contacts } })
+    .json({ status: 'success', code: HttpCode.OK, data: { token } })
 }
 
-const getContactById = async (req, res, next) => {
-  const { id } = req.params
-  const contact = await repositoryContacts.getContactById(id)
-  console.log(contact) // toObject
-  if (contact) {
-    return res
-      .status(HttpCode.OK)
-      .json({ status: 'success', code: HttpCode.OK, data: { contact } }) // toJson
-  }
+const logout = async (req, res, next) => {
+  await authService.setToken(req.user.id, null)
   res
-    .status(HttpCode.NOT_FOUND)
-    .json({ status: 'error', code: HttpCode.NOT_FOUND, message: 'Not found' })
+    .status(HttpCode.NO_CONTENT)
+    .json({ status: 'success', code: HttpCode.OK, data: {} })
 }
 
-const addContact = async (req, res, next) => {
-  const newContact = await repositoryContacts.addContact(req.body)
-  res.status(HttpCode.CREATED).json({
-    status: 'success',
-    code: HttpCode.OK,
-    data: { contact: newContact },
-  })
-}
-
-const removeContact = async (req, res, next) => {
-  const { id } = req.params
-  const contact = await repositoryContacts.removeContact(id)
-  if (contact) {
-    return res
-      .status(HttpCode.OK)
-      .json({ status: 'success', code: HttpCode.OK, data: { contact } })
-  }
-  res
-    .status(HttpCode.NOT_FOUND)
-    .json({ status: 'error', code: HttpCode.NOT_FOUND, message: 'Not found' })
-}
-
-const updateContact = async (req, res, next) => {
-  const { id } = req.params
-  const contact = await repositoryContacts.updateContact(id, req.body)
-  if (contact) {
-    return res
-      .status(HttpCode.OK)
-      .json({ status: 'success', code: HttpCode.OK, data: { contact } })
-  }
-  res
-    .status(HttpCode.NOT_FOUND)
-    .json({ status: 'error', code: HttpCode.NOT_FOUND, message: 'Not found' })
-}
-
-export { getContacts, getContactById, addContact, removeContact, updateContact }
+export { registration, login, logout }
