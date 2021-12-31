@@ -1,13 +1,13 @@
-import pkg from 'mongoose'
-import { MIN_AGE, MAX_AGE } from '../lib/constants'
+import pkg from "mongoose";
+import { MIN_AGE, MAX_AGE } from "../lib/constants";
 
-const { Schema, model } = pkg
+const { Schema, model, SchemaTypes } = pkg;
 
 const contactSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, 'Set name for contact'],
+      required: [true, "Set name for contact"],
     },
     age: {
       type: Number,
@@ -25,6 +25,11 @@ const contactSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: SchemaTypes.ObjectId,
+      ref: "user",
+      required: true,
+    },
   },
   {
     versionKey: false,
@@ -32,21 +37,21 @@ const contactSchema = new Schema(
     toJSON: {
       virtuals: true,
       transform: function (doc, ret) {
-        delete ret._id
-        return ret
+        delete ret._id;
+        return ret;
       },
     },
     toObject: { virtuals: true },
-  },
-)
-
-contactSchema.virtual('status').get(function () {
-  if (this.age >= 40) {
-    return 'old'
   }
-  return 'young'
-})
+);
 
-const Contact = model('contact', contactSchema)
+contactSchema.virtual("status").get(function () {
+  if (this.age >= 40) {
+    return "old";
+  }
+  return "young";
+});
 
-export default Contact
+const Contact = model("contact", contactSchema);
+
+export default Contact;
