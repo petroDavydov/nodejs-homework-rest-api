@@ -1,13 +1,11 @@
 import Contact from "../model/contact";
+import pkg from "mongoose";
+const { Types } = pkg;
 
-const listContacts = async ({
+const listContacts = async (
   userId,
-  sortBy,
-  sortByDesc,
-  filter,
-  limit = 10,
-  skip = 0,
-}) => {
+  { sortBy, sortByDesc, filter, limit = 10, skip = 0 }
+) => {
   let sortCriteria = null;
   const total = await Contact.find({ owner: userId }).countDocuments();
   let result = Contact.find({ owner: userId }).populate({
@@ -66,10 +64,27 @@ const updateContact = async (userId, contactId, body) => {
   return result;
 };
 
+const getStatisticsContacts = async (id) => {
+  const data = await Contact.aggregate([
+    { $match: { owner: Types.ObjectId(id) } },
+    {
+      $group: {
+        _id: "qweqwe",
+        totalAge: { $sum: "$age" },
+        minAge: { $min: "$age" },
+        maxAge: { $max: "$age" },
+        avgAge: { $avg: "$age" },
+      },
+    },
+  ]);
+  return data;
+};
+
 export default {
   listContacts,
   getContactById,
   removeContact,
   addContact,
   updateContact,
+  getStatisticsContacts,
 };
