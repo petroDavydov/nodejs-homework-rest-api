@@ -14,4 +14,11 @@ const aggregation = async (req, res, next) => {
     .json({ status: 'error', code: HttpCode.NOT_FOUND, message: 'Not found' })
 }
 
-export { aggregation }
+const uploadAvatar = async (req, res, next) => {
+
+  res
+    .status(HttpCode.OK)
+    .json({ status: 'success', code: HttpCode.OK, message: 'Success!' })
+}
+
+export { aggregation,uploadAvatar }
