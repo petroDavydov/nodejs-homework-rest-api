@@ -1,8 +1,9 @@
 import repositoryContacts from "../../repository/contacts";
 import { HttpCode } from "../../lib/constants";
 import {
-  UploadFileService,
-  CloudFileStorage,
+  AvatarStorage,
+//   CloudFileStorage,
+  LocalFileStorage,
 } from "../../service/file-storage";
 
 const aggregation = async (req, res, next) => {
@@ -19,11 +20,7 @@ const aggregation = async (req, res, next) => {
 };
 
 const uploadAvatar = async (req, res, next) => {
-  const uploadService = new UploadFileService(
-    CloudFileStorage,
-    req.file,
-    req.user
-  );
+  const uploadService = new AvatarStorage(LocalFileStorage, req.file, req.user);
   const avatarUrl = await uploadService.updateAvatar();
 
   res.status(HttpCode.OK).json({

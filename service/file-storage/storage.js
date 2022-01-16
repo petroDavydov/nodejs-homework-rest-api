@@ -1,9 +1,8 @@
 import Jimp from "jimp";
-
 class AvatarStorage {
   constructor(Storage, file, user) {
     this.storage = new Storage(file, user);
-    file.pathFile = file.path;
+    this.pathFile = file.path;
   }
 
   async updateAvatar() {
@@ -24,5 +23,4 @@ class AvatarStorage {
       .writeAsync(pathFile);
   }
 }
-
 export default AvatarStorage;
