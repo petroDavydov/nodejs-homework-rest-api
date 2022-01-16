@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import { promisify } from "util";
+import { unlink } from "fs/promises";
 import Users from "../../repository/users";
 import { CLOUD_FOLDER_AVATARS } from "../../lib/constants";
 
@@ -19,8 +20,7 @@ class CloudStorage {
   }
 
   async save() {
-    
-	const {
+    const {
       public_id: returnedIdAvatarCloud,
       secure_url: avatarUrl,
     } = await this.uploadCloud(this.filePath, {
@@ -33,7 +33,16 @@ class CloudStorage {
     );
 
     await Users.updateAvatar(this.userId, avatarUrl, newIdAvatarCloud);
+    await this.removeUploadFile(this.filePath);
     return avatarUrl;
+  }
+
+  async removeUploadFile(filePath) {
+    try {
+      await unlink(filePath);
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 }
 
