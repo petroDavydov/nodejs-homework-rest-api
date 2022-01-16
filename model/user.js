@@ -48,6 +48,10 @@ const userSchema = new Schema(
         );
       },
     },
+    idAvatarCloud: {
+      type: String,
+      default: null,
+    },
   },
   {
     versionKey: false,
