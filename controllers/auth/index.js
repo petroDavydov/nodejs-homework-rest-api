@@ -14,8 +14,8 @@ const registration = async (req, res, next) => {
     }
     const data = await authService.create(req.body);
     res
-      .status(HttpCode.OK)
-      .json({ status: "success", code: HttpCode.OK, data });
+      .status(HttpCode.CREATED)
+      .json({ status: "success", code: HttpCode.CREATED, data });
   } catch (err) {
     next(err);
   }
