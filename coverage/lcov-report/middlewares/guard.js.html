@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for service/auth/index.js</title>
+    <title>Code coverage report for middlewares/guard.js</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.png" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
+            background-image: url(../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">service/auth</a> index.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">middlewares</a> guard.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.53% </span>
+                <span class="strong">67.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/43</span>
+                <span class='fraction'>29/43</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">50% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>3/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.53% </span>
+                <span class="strong">67.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/43</span>
+                <span class='fraction'>29/43</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -112,36 +112,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -149,49 +122,76 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import jwt from "jsonwebtoken";
-import Users from "../../repository/users";
-const SECRET_KEY = process.env.JWT_SECRET_KEY;
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import jwt from 'jsonwebtoken'
+import repositoryUsers from '../repository/users'
+import { HttpCode } from '../lib/constants'
 &nbsp;
-class AuthService {
-<span class="fstat-no" title="function not covered" >  async isUserExist(email) {</span>
-<span class="cstat-no" title="statement not covered" >    const user = await Users.findByEmail(email);</span>
-<span class="cstat-no" title="statement not covered" >    return !!user;</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
+const SECRET_KEY = process.env.JWT_SECRET_KEY
 &nbsp;
-<span class="fstat-no" title="function not covered" >  async create(body) {</span>
-<span class="cstat-no" title="statement not covered" >    const { id, name, email, role, avatar } = await Users.create(body);</span>
-<span class="cstat-no" title="statement not covered" >    return {</span>
-<span class="cstat-no" title="statement not covered" >      id,</span>
-<span class="cstat-no" title="statement not covered" >      name,</span>
-<span class="cstat-no" title="statement not covered" >      email,</span>
-<span class="cstat-no" title="statement not covered" >      role,</span>
-<span class="cstat-no" title="statement not covered" >      avatar,</span>
-<span class="cstat-no" title="statement not covered" >    };</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
-&nbsp;
-<span class="fstat-no" title="function not covered" >  async getUser(email, password) {</span>
-<span class="cstat-no" title="statement not covered" >    const user = await Users.findByEmail(email);</span>
-<span class="cstat-no" title="statement not covered" >    const isValidPassword = await user?.isValidPassword(password);</span>
-<span class="cstat-no" title="statement not covered" >    if (!isValidPassword) {</span>
-<span class="cstat-no" title="statement not covered" >      return null;</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    return user;</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
-&nbsp;
-<span class="fstat-no" title="function not covered" >  getToken(user) {</span>
-<span class="cstat-no" title="statement not covered" >    const { id, email } = user;</span>
-<span class="cstat-no" title="statement not covered" >    const payload = { id, email };</span>
-<span class="cstat-no" title="statement not covered" >    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "24h" });</span>
-<span class="cstat-no" title="statement not covered" >    return token;</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
-&nbsp;
-<span class="fstat-no" title="function not covered" >  async setToken(id, token) {</span>
-<span class="cstat-no" title="statement not covered" >    await Users.updateToken(id, token);</span>
+const verifyToken = (token) =&gt; {
+  try {
+    const verify = jwt.verify(token, SECRET_KEY)
+    return !!verify
+  } <span class="branch-0 cbranch-no" title="branch not covered" >catch (e) {</span>
+<span class="cstat-no" title="statement not covered" >    return false</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 }
 &nbsp;
-export default new AuthService();
+const guard = async (req, res, next) =&gt; {
+  const token = req.get('authorization')?.split(' ')[1]
+  console.log(
+    "🚀 ~ file: guard.js ~ line 18 ~ guard ~ req.get('authorization')",
+    req.get('authorization'),
+  )
+  const isValidToken = verifyToken(token)
+  if (!isValidToken) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    return res.status(HttpCode.UNAUTHORIZED).json({</span>
+<span class="cstat-no" title="statement not covered" >      status: 'error',</span>
+<span class="cstat-no" title="statement not covered" >      code: HttpCode.UNAUTHORIZED,</span>
+<span class="cstat-no" title="statement not covered" >      message: 'Not authorized',</span>
+<span class="cstat-no" title="statement not covered" >    })</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+  const payload = jwt.decode(token)
+  const user = await repositoryUsers.findById(payload.id)
+  if (!user || user.token !== token) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >    return res.status(HttpCode.UNAUTHORIZED).json({</span>
+<span class="cstat-no" title="statement not covered" >      status: 'error',</span>
+<span class="cstat-no" title="statement not covered" >      code: HttpCode.UNAUTHORIZED,</span>
+<span class="cstat-no" title="statement not covered" >      message: 'Not authorized',</span>
+<span class="cstat-no" title="statement not covered" >    })</span>
+<span class="cstat-no" title="statement not covered" >  }</span>
+  req.user = user // res.locals.user = user
+  next()
+}
+&nbsp;
+export default guard
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -201,14 +201,14 @@ export default new AuthService();
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
                 at Tue Jan 18 2022 15:28:08 GMT+0200 (Восточная Европа, стандартное время)
             </div>
-        <script src="../../prettify.js"></script>
+        <script src="../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../sorter.js"></script>
-        <script src="../../block-navigation.js"></script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
     </body>
 </html>
     
