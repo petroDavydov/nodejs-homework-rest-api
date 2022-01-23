@@ -1,8 +1,9 @@
 import repositoryContacts from "../../repository/contacts";
+import repositoryUsers from ".././users";
 import { HttpCode } from "../../lib/constants";
 import {
   AvatarStorage,
-//   CloudFileStorage,
+  //   CloudFileStorage,
   LocalFileStorage,
 } from "../../service/file-storage";
 
@@ -31,4 +32,35 @@ const uploadAvatar = async (req, res, next) => {
   });
 };
 
-export { aggregation, uploadAvatar };
+const verifyUser = async (req, res, next) => {
+  const verifyToken = req.params.token;
+  const userFromToken = repositoryUsers.findByVerifyToken(verifyToken);
+  if (userFromToken) {
+    await repositoryUsers.updateVerify(userFromToken.id, true);
+    res.status(HttpCode.OK).json({
+      status: "success",
+      code: HttpCode.OK,
+      data: { message: "Success" },
+    });
+  }
+
+  res.status(HttpCode.BAD_REQUEST).json({
+    status: "success",
+    code: HttpCode.BAD_REQUEST,
+    data: { message: "Invalid Token" },
+  });
+};
+
+const repeatEmailForVerifyUser = async (req, res, next) => {
+  const uploadService = new AvatarStorage(LocalFileStorage, req.file, req.user);
+  const avatarUrl = await uploadService.updateAvatar();
+
+  res.status(HttpCode.OK).json({
+    status: "success",
+    code: HttpCode.OK,
+    message: "Success!",
+    data: { avatarUrl },
+  });
+};
+
+export { aggregation, uploadAvatar, verifyUser, repeatEmailForVerifyUser };
