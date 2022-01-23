@@ -37,13 +37,28 @@ class EmailService {
             link: `${this.link}/api/users/verify/${verifyToken}`,
           },
         },
-        outro:
-          "Need help, or have questions? Just reply to this email, we'd love to help.",
+        outro: "If need help, write us",
       },
     };
+    return mailGenerator.generate(email);
   }
 
-  async sendVerifyEmail(email, username, verifyToken) {}
+  async sendVerifyEmail(email, username, verifyToken) {
+    const emailBody = this.createEmailTemplate(username, verifyToken);
+    const message = {
+      to: email,
+      subject: "Verify email",
+      html: emailBody,
+    };
+    try {
+      const result = await this.sender.send(msg);
+      console.log(result);
+      return true;
+    } catch (error) {
+      console.error(error.message);
+      return false;
+    }
+  }
 }
 
 export default EmailService;
