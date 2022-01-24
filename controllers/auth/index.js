@@ -2,9 +2,9 @@ import { HttpCode } from "../../lib/constants";
 import authService from "../../service/auth";
 import {
   EmailService,
+  SenderNodemailer,
   SenderSendgrid,
-  SenderNodeMailer,
-} from "../../service/auth";
+} from "../../service/email";
 
 const registration = async (req, res, next) => {
   try {
@@ -22,14 +22,14 @@ const registration = async (req, res, next) => {
       process.env.NODE_ENV,
       new SenderSendgrid()
     );
-// ==============не должен возвращать ошибку, просто сбрасивает в логи
+    // ==============не должен возвращать ошибку, просто сбрасивает в логи
     const isSend = await emailService.sendVerifyEmail(
       email,
       userData.name,
       userData.verifyTokenEmail
     );
     delete userData.verifyTokenEmail;
-// ===============
+    // ===============
     res.status(HttpCode.CREATED).json({
       status: "success",
       code: HttpCode.CREATED,
@@ -65,3 +65,4 @@ const logout = async (req, res, next) => {
 };
 
 export { registration, login, logout };
+

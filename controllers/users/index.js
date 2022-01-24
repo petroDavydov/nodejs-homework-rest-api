@@ -1,5 +1,5 @@
 import repositoryContacts from "../../repository/contacts";
-import repositoryUsers from ".././users";
+import repositoryUsers from "../../repository/users";
 import { HttpCode } from "../../lib/constants";
 import {
   AvatarStorage,
