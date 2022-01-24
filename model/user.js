@@ -56,7 +56,7 @@ const userSchema = new Schema(
     isVerify: { type: Boolean, default: false },
     verifyTokenEmail: {
       type: String,
-      default: randomUUID(),
+      default: randomUUID,
     },
   },
   {
