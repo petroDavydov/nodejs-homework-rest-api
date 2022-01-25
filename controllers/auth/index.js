@@ -1,5 +1,10 @@
 import { HttpCode } from "../../lib/constants";
 import authService from "../../service/auth";
+import {
+  EmailService,
+  SenderNodemailer,
+  SenderSendgrid,
+} from "../../service/email";
 
 const registration = async (req, res, next) => {
   try {
@@ -12,10 +17,24 @@ const registration = async (req, res, next) => {
         message: "Email is already exist",
       });
     }
-    const data = await authService.create(req.body);
-    res
-      .status(HttpCode.CREATED)
-      .json({ status: "success", code: HttpCode.CREATED, data });
+    const userData = await authService.create(req.body);
+    const emailService = new EmailService(
+      process.env.NODE_ENV,
+      new SenderSendgrid()
+    );
+    // ==============не должен возвращать ошибку, просто сбрасивает в логи
+    const isSend = await emailService.sendVerifyEmail(
+      email,
+      userData.name,
+      userData.verifyTokenEmail
+    );
+    delete userData.verifyTokenEmail;
+    // ===============
+    res.status(HttpCode.CREATED).json({
+      status: "success",
+      code: HttpCode.CREATED,
+      data: { ...userData, isSendEmailVerify: isSend },
+    });
   } catch (err) {
     next(err);
   }
@@ -46,3 +65,4 @@ const logout = async (req, res, next) => {
 };
 
 export { registration, login, logout };
+
