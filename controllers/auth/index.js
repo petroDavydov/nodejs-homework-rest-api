@@ -5,51 +5,44 @@ import {
   SenderNodemailer,
   SenderSendgrid,
 } from "../../service/email";
+import { CustomError } from "../../lib/custom-error";
 
 const registration = async (req, res, next) => {
-  try {
-    const { email } = req.body;
-    const isUserExist = await authService.isUserExist(email);
-    if (isUserExist) {
-      return res.status(HttpCode.CONFLICT).json({
-        status: "error",
-        code: HttpCode.CONFLICT,
-        message: "Email is already exist",
-      });
-    }
-    const userData = await authService.create(req.body);
-    const emailService = new EmailService(
-      process.env.NODE_ENV,
-      new SenderSendgrid()
-    );
-    // ==============не должен возвращать ошибку, просто сбрасивает в логи
-    const isSend = await emailService.sendVerifyEmail(
-      email,
-      userData.name,
-      userData.verifyTokenEmail
-    );
-    delete userData.verifyTokenEmail;
-    // ===============
-    res.status(HttpCode.CREATED).json({
-      status: "success",
-      code: HttpCode.CREATED,
-      data: { ...userData, isSendEmailVerify: isSend },
-    });
-  } catch (err) {
-    next(err);
+  const { email } = req.body;
+  const isUserExist = await authService.isUserExist(email);
+
+  if (isUserExist) {
+    throw new CustomError(HttpCode.CONFLICT, "Email is already exist");
   }
+
+  const userData = await authService.create(req.body);
+  const emailService = new EmailService(
+    process.env.NODE_ENV,
+    new SenderSendgrid()
+  );
+  // ==============не должен возвращать ошибку, просто сбрасивает в логи
+  const isSend = await emailService.sendVerifyEmail(
+    email,
+    userData.name,
+    userData.verifyTokenEmail
+  );
+  delete userData.verifyTokenEmail;
+  // ===============
+  res.status(HttpCode.CREATED).json({
+    status: "success",
+    code: HttpCode.CREATED,
+    data: { ...userData, isSendEmailVerify: isSend },
+  });
 };
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
   const user = await authService.getUser(email, password);
+
   if (!user) {
-    return res.status(HttpCode.UNAUTHORIZED).json({
-      status: "error",
-      code: HttpCode.UNAUTHORIZED,
-      message: "Invalid credentials",
-    });
+    throw new CustomError(HttpCode.UNAUTHORIZED, "Invalid credentials");
   }
+
   const token = authService.getToken(user);
   await authService.setToken(user.id, token);
   res
@@ -65,4 +58,3 @@ const logout = async (req, res, next) => {
 };
 
 export { registration, login, logout };
-
