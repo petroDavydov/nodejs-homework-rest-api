@@ -47,7 +47,7 @@ const removeContact = async (req, res, next) => {
       .status(HttpCode.OK)
       .json({ status: "success", code: HttpCode.OK, data: { contact } });
   }
-   throw new CustomError(HttpCode.NOT_FOUND, "Not found");
+  throw new CustomError(HttpCode.NOT_FOUND, "Not found");
 };
 
 const updateContact = async (req, res, next) => {
@@ -60,7 +60,7 @@ const updateContact = async (req, res, next) => {
       .status(HttpCode.OK)
       .json({ status: "success", code: HttpCode.OK, data: { contact } });
   }
-   throw new CustomError(HttpCode.NOT_FOUND, "Not found");
+  throw new CustomError(HttpCode.NOT_FOUND, "Not found");
 };
 
 export {

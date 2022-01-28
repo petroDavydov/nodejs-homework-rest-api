@@ -1,11 +1,11 @@
-import { Router } from 'express'
+import { Router } from "express";
 import {
   getContacts,
   getContactById,
   addContact,
   removeContact,
   updateContact,
-} from '../../../controllers/contacts'
+} from "../../../controllers/contacts";
 
 import {
   validateCreate,
@@ -13,26 +13,32 @@ import {
   validateId,
   validateUpdateFavorite,
   validateQuery,
-} from './validation'
+} from "./validation";
 
-import guard from '../../../middlewares/guard'
+import wrapperError from "../../../middlewares/error-handler";
 
-const router = new Router()
+import guard from "../../../middlewares/guard";
 
-router.get('/', [guard, validateQuery], getContacts)
+const router = new Router();
 
-router.get('/:id', [guard, validateId], getContactById)
+router.get("/", [guard, validateQuery], wrapperError(getContacts));
 
-router.post('/', [guard, validateCreate], addContact)
+router.get("/:id", [guard, validateId], wrapperError(getContactById));
 
-router.delete('/:id', [guard, validateId], removeContact)
+router.post("/", [guard, validateCreate], wrapperError(addContact));
 
-router.put('/:id', [guard, validateId, validateUpdate], updateContact)
+router.delete("/:id", [guard, validateId], wrapperError(removeContact));
+
+router.put(
+  "/:id",
+  [guard, validateId, validateUpdate],
+  wrapperError(updateContact)
+);
 
 router.patch(
-  '/:id/favorite',
+  "/:id/favorite",
   [guard, validateId, validateUpdateFavorite],
-  updateContact,
-)
+  wrapperError(updateContact)
+);
 
-export default router
+export default router;

@@ -8,7 +8,6 @@ import contactsRouter from "./routes/api/contacts";
 import authRouter from "./routes/api/auth";
 import usersRouter from "./routes/api/users";
 
-
 const app = express();
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
@@ -27,8 +26,6 @@ app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/contacts", contactsRouter);
 
-
-
 app.use((req, res) => {
   res
     .status(HttpCode.NOT_FOUND)
@@ -36,14 +33,14 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
+  const statusCode = err.status || HttpCode.INTERNAL_SERVER_ERROR;
+  const status =
+    statusCode === HttpCode.INTERNAL_SERVER_ERROR ? "fail" : "error";
   res.status(HttpCode.INTERNAL_SERVER_ERROR).json({
-    status: "fail",
-    code: HttpCode.INTERNAL_SERVER_ERROR,
+    status: status,
+    code: statusCode,
     message: err.message,
   });
 });
-
-
-
 
 export default app;
